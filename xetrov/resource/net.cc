@@ -83,8 +83,8 @@ public:
 		stop = false;
 		reopen = false;
 
-		if((err = request.set_http_header("Accept", "*/*")))
-			return err;
+		if(!request.set_http_header("Accept", "*/*"))
+			return XE_ENOMEM;
 		if(start || end){
 			char range[60];
 
@@ -92,8 +92,8 @@ public:
 				snprintf(range, sizeof(range), "bytes=%lu-%lu", start, end - 1);
 			else
 				snprintf(range, sizeof(range), "bytes=%lu-", start);
-			if((err = request.set_http_header("Range", range, true)))
-				return err;
+			if(!request.set_http_header("Range", range, true))
+				return XE_ENOMEM;
 		}
 
 		return ctx -> start(request);
