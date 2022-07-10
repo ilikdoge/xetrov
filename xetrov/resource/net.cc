@@ -111,7 +111,7 @@ public:
 	}
 
 	void pause(bool paused){
-		if(ctx -> pause(request, paused ? XE_PAUSE_RECV : XE_RESUME_RECV))
+		if(ctx -> transferctl(request, paused ? XE_PAUSE_RECV : XE_RESUME_RECV))
 			abort();
 	}
 
